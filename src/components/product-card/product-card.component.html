@@ -1,0 +1,37 @@
+<nz-card 
+    [nzCover]="coverTemplate" 
+    nzHoverable 
+    style="width: 300px; margin: 10px;">
+    
+    <nz-card-meta 
+        [nzTitle]="product.name_uz" 
+        [nzDescription]="product?.name_ru">
+    </nz-card-meta>
+
+    <div style="margin-top: 10px;">
+        <b>BRAND:</b> {{ product.brand }}
+    </div>
+
+    <div style="margin-top: 10px;">
+        <b>Skladda:</b> {{ product.isAvailable ? "BOR" : "Yo'q" }}
+    </div>
+
+    <div style="margin-top: 10px;">
+        <b>Yaratilgan vaqti:</b> {{ product.createdAt.split("T")[0] }}
+    </div>
+
+    <div style="margin-top: 10px; font-weight: bold; text-align: right;">
+        {{ product.price_uzs }} UZS
+    </div>
+
+
+    <ng-template #coverTemplate>
+        <img alt="product image" [src]="product.images_urls.length ? product.images_urls[0] : 'https://www.ciberer.es/images/nofoto.png'" style="height: 200px; object-fit: cover;" />
+    </ng-template>
+
+    <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; margin-top: 20px;">
+        <button nz-button nzType="primary">Tahrirlash</button>
+        <button nz-button nzType="primary" nzDanger>O'chirish</button>
+    </div>
+
+</nz-card>
