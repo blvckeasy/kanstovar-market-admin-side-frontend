@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
-
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-products',
-  imports: [CommonModule, ProductCardComponent, MenuComponent, PaginationComponent],
+  imports: [CommonModule, ProductCardComponent, MenuComponent, PaginationComponent, NzButtonModule, RouterModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })

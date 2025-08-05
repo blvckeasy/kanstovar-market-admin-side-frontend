@@ -23,6 +23,7 @@
     "typescript": "~5.7.2"
   },
   "dependencies": {
+    "@kolkov/angular-editor": "^2.1.0",
     "ng-zorro-antd": "^19.3.1"
   }
 }

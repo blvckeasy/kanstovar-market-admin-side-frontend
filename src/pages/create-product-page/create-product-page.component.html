@@ -1,0 +1,93 @@
+<div style="display: flex; flex-direction: row;">
+    <app-menu></app-menu>
+    <div style="margin: 50px; width: 100%; height: 80%;">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()" nz-form [nzLayout]="'vertical'">
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true">Rasm</nz-form-label>
+                <nz-form-control>
+                    <nz-upload [nzBeforeUpload]="beforeUpload"
+                        [nzShowUploadList]="{ showRemoveIcon: true, showPreviewIcon: true }" [nzMultiple]="true"
+                        [(nzFileList)]="fileList">
+                        <button nz-button type="button"><i nz-icon nzType="upload"></i> Rasm tanlash</button>
+                    </nz-upload>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true">Nomi (UZ)</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="name_uz" placeholder="Mahsulot nomi (uzbekcha)">
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true">Nomi (RU)</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="name_ru" placeholder="Mahsulot nomi (ruscha)">
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true">Tavsif (UZ)</nz-form-label>
+                <nz-form-control [nzSpan]="24">
+                    <div style="width: 100%;">
+                        <angular-editor formControlName="description_uz" [config]="editorConfig"></angular-editor>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true">Tavsif (RU)</nz-form-label>
+                <nz-form-control [nzSpan]="24">
+                    <div style="width: 100%;">
+                        <angular-editor formControlName="description_ru" [config]="editorConfig"></angular-editor>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true">Narxi (UZS)</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="price_uzs" placeholder="Narxini kiriting">
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true">Kategoriya</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="category" placeholder="Kategoriya tanlang">
+                        <nz-option nzValue="category1" nzLabel="Kategoriya 1"></nz-option>
+                        <nz-option nzValue="category2" nzLabel="Kategoriya 2"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzRequired]="true">Brend</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="brand" placeholder="Brend nomini kiriting">
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- <nz-form-item>
+                <nz-form-label>Teqlari</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="tags" placeholder="Teqlarni kiriting">
+                </nz-form-control>
+            </nz-form-item> -->
+
+            <nz-form-item>
+                <nz-form-label>Mavjudlik</nz-form-label>
+                <nz-form-control>
+                    <label nz-checkbox formControlName="isAvailable">Mavjud</label>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-control>
+                    <button nz-button nzType="primary" [disabled]="productForm.invalid" nzAnimate>Saqlash</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+</div>

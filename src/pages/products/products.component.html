@@ -1,7 +1,10 @@
 <div style="display: flex; flex-direction: row;">
     <app-menu></app-menu>
     <div style="display: flex; flex-direction: column; width: 80%; align-items: center;">
-        <h1 style="align-self: flex-start; margin-left: 50px; font-weight: bold; margin: 20px;">Mahsulotlar bo'limi:</h1>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 80%; align-items: center;">
+            <h1 style="align-self: flex-start; margin-left: 50px; font-weight: bold; margin: 20px;">Mahsulotlar bo'limi:</h1>
+            <button nz-button nzType="primary" style="height: 40px;" [routerLink]="'/create-product'">Yangi mahsulot</button>
+        </div>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; margin: 0px auto;">
             <app-product-card 
                 *ngFor="let product of products" 
