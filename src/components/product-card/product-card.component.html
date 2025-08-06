@@ -26,7 +26,7 @@
 
 
     <ng-template #coverTemplate>
-        <img alt="product image" [src]="product.images_urls.length ? product.images_urls[0] : 'https://www.ciberer.es/images/nofoto.png'" style="height: 200px; object-fit: cover;" />
+        <img alt="product image" [src]="product.images_urls.length ? `${backendURL + '/static/product-images/' + product.images_urls[0]}` : 'https://www.ciberer.es/images/nofoto.png'" style="height: 200px; object-fit: cover;" />
     </ng-template>
 
     <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; margin-top: 20px;">

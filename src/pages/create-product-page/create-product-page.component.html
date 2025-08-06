@@ -55,10 +55,15 @@
             <nz-form-item>
                 <nz-form-label [nzRequired]="true">Kategoriya</nz-form-label>
                 <nz-form-control>
-                    <nz-select formControlName="category" placeholder="Kategoriya tanlang">
-                        <nz-option nzValue="category1" nzLabel="Kategoriya 1"></nz-option>
-                        <nz-option nzValue="category2" nzLabel="Kategoriya 2"></nz-option>
-                    </nz-select>
+                    @if (productCategories.length) {
+                        <nz-select formControlName="category" placeholder="Kategoriya tanlang">
+                            @for (category of productCategories; track category._id) {
+                                <nz-option [nzValue]="category._id" [nzLabel]="category.name_uz"></nz-option>
+                            }
+                                <!-- <nz-option nzValue="category1" nzLabel="Kategoriya 1"></nz-option>
+                                <nz-option nzValue="category2" nzLabel="Kategoriya 2"></nz-option> -->
+                        </nz-select>
+                    }
                 </nz-form-control>
             </nz-form-item>
 

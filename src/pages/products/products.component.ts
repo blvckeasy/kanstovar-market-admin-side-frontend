@@ -1,170 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { RouterModule } from '@angular/router';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-products',
   imports: [CommonModule, ProductCardComponent, MenuComponent, PaginationComponent, NzButtonModule, RouterModule],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  styleUrl: './products.component.css',
+  providers: [ProductService],
 })
-export class ProductsComponent {
-  products = [
-    {
-      "_id": {
-        "$oid": "687bec4600dd6462a248cf67"
-      },
-      "name_uz": "Albom",
-      "name_ru": "Альбом",
-      "description_uz": "Esdalikka rasmlarni olib qo'yish uchun albom",
-      "description_ru": "Альбом для хранения фотографий на память",
-      "images_urls": [],
-      "price_uzs": 49900,
-      "category": "687ba27e3a8856304334e57a",
-      "brand": "Xitoy",
-      "isAvailable": true,
-      "tags": [
-        "Albom",
-        "Rasmlarni saqlash uchun"
-      ],
-      "createdAt": "2025-07-19T19:04:38.713Z",
-    },
-    {
-      "_id": {
-        "$oid": "687bec4600dd6462a248cf67"
-      },
-      "name_uz": "Albom",
-      "name_ru": "Альбом",
-      "description_uz": "Esdalikka rasmlarni olib qo'yish uchun albom",
-      "description_ru": "Альбом для хранения фотографий на память",
-      "images_urls": [],
-      "price_uzs": 49900,
-      "category": "687ba27e3a8856304334e57a",
-      "brand": "Xitoy",
-      "isAvailable": true,
-      "tags": [
-        "Albom",
-        "Rasmlarni saqlash uchun"
-      ],
-      "createdAt": "2025-07-19T19:04:38.713Z",
-    },
-    {
-      "_id": {
-        "$oid": "687bec4600dd6462a248cf67"
-      },
-      "name_uz": "Albom",
-      "name_ru": "Альбом",
-      "description_uz": "Esdalikka rasmlarni olib qo'yish uchun albom",
-      "description_ru": "Альбом для хранения фотографий на память",
-      "images_urls": [],
-      "price_uzs": 49900,
-      "category": "687ba27e3a8856304334e57a",
-      "brand": "Xitoy",
-      "isAvailable": true,
-      "tags": [
-        "Albom",
-        "Rasmlarni saqlash uchun"
-      ],
-      "createdAt": "2025-07-19T19:04:38.713Z",
-    },
-    {
-      "_id": {
-        "$oid": "687bec4600dd6462a248cf67"
-      },
-      "name_uz": "Albom",
-      "name_ru": "Альбом",
-      "description_uz": "Esdalikka rasmlarni olib qo'yish uchun albom",
-      "description_ru": "Альбом для хранения фотографий на память",
-      "images_urls": [],
-      "price_uzs": 49900,
-      "category": "687ba27e3a8856304334e57a",
-      "brand": "Xitoy",
-      "isAvailable": true,
-      "tags": [
-        "Albom",
-        "Rasmlarni saqlash uchun"
-      ],
-      "createdAt": "2025-07-19T19:04:38.713Z",
-    },
-    {
-      "_id": {
-        "$oid": "687bec4600dd6462a248cf67"
-      },
-      "name_uz": "Albom",
-      "name_ru": "Альбом",
-      "description_uz": "Esdalikka rasmlarni olib qo'yish uchun albom",
-      "description_ru": "Альбом для хранения фотографий на память",
-      "images_urls": [],
-      "price_uzs": 49900,
-      "category": "687ba27e3a8856304334e57a",
-      "brand": "Xitoy",
-      "isAvailable": true,
-      "tags": [
-        "Albom",
-        "Rasmlarni saqlash uchun"
-      ],
-      "createdAt": "2025-07-19T19:04:38.713Z",
-    },
-    {
-      "_id": {
-        "$oid": "687bec4600dd6462a248cf67"
-      },
-      "name_uz": "Albom",
-      "name_ru": "Альбом",
-      "description_uz": "Esdalikka rasmlarni olib qo'yish uchun albom",
-      "description_ru": "Альбом для хранения фотографий на память",
-      "images_urls": [],
-      "price_uzs": 49900,
-      "category": "687ba27e3a8856304334e57a",
-      "brand": "Xitoy",
-      "isAvailable": true,
-      "tags": [
-        "Albom",
-        "Rasmlarni saqlash uchun"
-      ],
-      "createdAt": "2025-07-19T19:04:38.713Z",
-    },
-    {
-      "_id": {
-        "$oid": "687bec4600dd6462a248cf67"
-      },
-      "name_uz": "Albom",
-      "name_ru": "Альбом",
-      "description_uz": "Esdalikka rasmlarni olib qo'yish uchun albom",
-      "description_ru": "Альбом для хранения фотографий на память",
-      "images_urls": [],
-      "price_uzs": 49900,
-      "category": "687ba27e3a8856304334e57a",
-      "brand": "Xitoy",
-      "isAvailable": true,
-      "tags": [
-        "Albom",
-        "Rasmlarni saqlash uchun"
-      ],
-      "createdAt": "2025-07-19T19:04:38.713Z",
-    },
-    {
-      "_id": {
-        "$oid": "687bec4600dd6462a248cf67"
-      },
-      "name_uz": "Albom",
-      "name_ru": "Альбом",
-      "description_uz": "Esdalikka rasmlarni olib qo'yish uchun albom",
-      "description_ru": "Альбом для хранения фотографий на память",
-      "images_urls": [],
-      "price_uzs": 49900,
-      "category": "687ba27e3a8856304334e57a",
-      "brand": "Xitoy",
-      "isAvailable": true,
-      "tags": [
-        "Albom",
-        "Rasmlarni saqlash uchun"
-      ],
-      "createdAt": "2025-07-19T19:04:38.713Z",
-    },
-  ];
+export class ProductsComponent implements OnInit {
+  products: any[] = [];
+
+  constructor(
+    private productService: ProductService,
+  ) { }
+
+  ngOnInit(): void {
+    console.log("ProductsComponent initialized");
+    this.productService.getProducts().subscribe(({ data, error }) => {
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      console.log(data);
+
+      this.products = data;
+    })
+    console.log("ProductsComponent ngOnInit executed");
+  }
 }

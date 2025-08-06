@@ -11,14 +11,18 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { MenuComponent } from '../../components/menu/menu.component';
-import {
-  AngularEditorConfig,
-  AngularEditorModule,
-} from '@kolkov/angular-editor';
+import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { NzMessageService, NzMessageModule } from 'ng-zorro-antd/message';
+import { ProductCategoryService } from '../../services/product-category.service';
+
+export interface IProductCategory {
+  _id: string;
+  name_uz: string;
+  name_ru: string;
+};
 
 @Component({
   selector: 'app-create-product-page',
@@ -37,10 +41,12 @@ import { NzMessageService, NzMessageModule } from 'ng-zorro-antd/message';
   ],
   templateUrl: './create-product-page.component.html',
   styleUrl: './create-product-page.component.css',
+  providers: [ProductCategoryService],
 })
 export class CreateProductPageComponent implements OnInit {
   productForm!: FormGroup;
   fileList: NzUploadFile[] = [];
+  productCategories: IProductCategory[] = [];
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -58,6 +64,7 @@ export class CreateProductPageComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private messageService: NzMessageService,
+    private productCategoryService: ProductCategoryService,
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +79,19 @@ export class CreateProductPageComponent implements OnInit {
       brand: ['', Validators.required],
       isAvailable: [false],
     });
+
+    this.productCategoryService.getProductCategories().subscribe(({ data, error }) => {
+      if (error) {
+        this.messageService.error(`Mahsulot kategoriyalarini olishda xatolik: ${error.message}`, {
+          nzDuration: 5000,
+          nzAnimate: true,
+        });
+        return;
+      }
+
+      console.log(data);
+      this.productCategories = data;
+    })
   }
 
   beforeUpload = (file: NzUploadFile): boolean => {
@@ -90,8 +110,7 @@ export class CreateProductPageComponent implements OnInit {
     this.productForm.patchValue({ images: this.fileList });
     this.productForm.get('images')?.markAsDirty();
     this.productForm.get('images')?.updateValueAndValidity();
-    console.log('fileList:', this.fileList);
-    console.log('Form images:', this.productForm.get('images')?.value);
+
     return false;
   };
 
@@ -116,12 +135,16 @@ export class CreateProductPageComponent implements OnInit {
       // Backend'ga yuborish
       this.http.post('http://localhost:5000/product', formData).subscribe(
         (response) => {
-          console.log('Response:', response);
           this.messageService.success('Mahsulot muvaffaqiyatli yaratildi!', {
             nzDuration: 5000,
             nzAnimate: true,
           });
-        },
+
+          // buyerda product yaratilgandan keyin formani tozalab tashlaydigan qilish kerak
+          this.productForm.reset();
+          this.fileList = [];
+          this.productForm.patchValue({ images: [] });
+          this.productForm.get('isAvailable')?.setValue(false);        },
         (error) => {
           console.error('Error:', error);
           this.messageService.error(`Xatolik yuz berdi: ${error.message || 'Noma\'lum xato'}`, {

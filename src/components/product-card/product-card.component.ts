@@ -9,6 +9,8 @@ import { NzButtonModule, NzButtonSize } from 'ng-zorro-antd/button';
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
+  backendURL = 'http://localhost:5000';
+
   @Input() product: any;
   size: NzButtonSize = 'large';
 }
