@@ -3,6 +3,7 @@ import { ProductsComponent } from '../pages/products/products.component';
 import { ProductCategoriesComponent } from '../pages/product-categories/product-categories.component';
 import { CreateProductPageComponent } from '../pages/create-product-page/create-product-page.component';
 import { ProductPageComponent } from '../pages/product-page/product-page.component';
+import { EditProductPageComponent } from '../pages/edit-product-page/edit-product-page.component';
 
 export const routes: Routes = [
     {
@@ -26,4 +27,8 @@ export const routes: Routes = [
         path: 'product/:id',
         component: ProductPageComponent,
     },
+    { 
+        path: 'edit-product/:id', 
+        component: EditProductPageComponent, 
+    }
 ];

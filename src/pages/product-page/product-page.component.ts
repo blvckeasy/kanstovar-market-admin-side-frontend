@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -29,7 +29,7 @@ export interface IProduct {
 @Component({
   selector: 'app-product-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss'
 })
@@ -65,7 +65,7 @@ export class ProductPageComponent implements OnInit {
       next: (data: IProduct) => {
         this.product = {
           ...data,
-          rating: data.rating || 4.8,
+          rating: data.rating || 4.9,
           reviews_count: data.reviews_count || 78,
           photos_count: data.photos_count || 5,
           orders: data.orders || 700,

@@ -1,0 +1,16 @@
+[nz-form] {
+  max-width: 600px;
+}
+
+:host {
+  display: block;
+  padding: 24px;
+}
+
+angular-editor {
+  width: 100%;
+}
+
+.nz-form-item {
+  margin-bottom: 16px;
+}

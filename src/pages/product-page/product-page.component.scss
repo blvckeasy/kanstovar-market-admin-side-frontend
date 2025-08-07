@@ -16,6 +16,8 @@
     border-bottom: 1px solid $gray-light;
 
     span {
+      cursor: pointer;
+
       &:not(:last-child)::after {
         content: '›';
         margin: 0 $spacer-half;

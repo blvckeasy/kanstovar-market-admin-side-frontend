@@ -1,141 +1,140 @@
 @if (loading) {
-  <div class="loading-container">
+<div class="loading-container">
     <div class="loader"></div>
     <p>Mahsulot yuklanmoqda...</p>
-  </div>
+</div>
 } @else if (error) {
-  <div class="error-container">
+<div class="error-container">
     <p>{{ error }}</p>
-  </div>
+</div>
 } @else if (product) {
-  <div class="product-page">
+<div class="product-page">
     <!-- Breadcrumbs -->
     <div class="breadcrumbs">
-      <span>Asosiy</span> &gt; 
-      <span>Konservalar</span> &gt; 
-      <span>{{ product.name_uz }}</span>
+        <span>Asosiy</span> &gt;
+        <span [routerLink]="'/products'">Mahsulotlar</span> &gt;
+        <span>{{ product.name_uz }}</span>
     </div>
 
     <!-- Product Header -->
     <div class="product-header">
-      <h1>{{ product.name_uz }}</h1>
-      <div class="product-meta">
-        <div class="rating">
-          <span class="star">★</span> {{ product.rating }} 
-          <span class="reviews">({{ product.reviews_count }} sharh)</span>
+        <h1>{{ product.name_uz }}</h1>
+        <div class="product-meta">
+            <div class="rating">
+                <span class="star">★</span> {{ product.rating }}
+                <span class="reviews">({{ product.reviews_count }} sharh)</span>
+            </div>
+            <div class="stats">
+                <span class="views">👁 {{ views }} koʻrish</span>
+                <span class="photos">📷 {{ product.images_urls.length }} foto</span>
+                <span class="orders">🛒 {{ product.orders }} buyurtma</span>
+            </div>
         </div>
-        <div class="stats">
-          <span class="views">👁 {{ views }} koʻrish</span>
-          <span class="photos">📷 {{ product.photos_count }} foto</span>
-          <span class="orders">🛒 {{ product.orders }} buyurtma</span>
-        </div>
-      </div>
     </div>
 
     <!-- Product Content -->
     <div class="product-content">
-      <!-- Gallery -->
-      <div class="gallery">
-        <div class="main-image">
-          <img [src]="backendURL + '/static/product-images/' + product.images_urls[currentImageIndex]" 
-               [alt]="product.name_uz">
-        </div>
-        <div class="thumbnails">
-          @for (image of product.images_urls; track image; let i = $index) {
-            <div class="thumbnail" [class.active]="i === currentImageIndex" 
-                 (click)="changeImage(i)">
-              <img [src]="backendURL + '/static/product-images/' + image" 
-                   [alt]="product.name_uz + ' thumbnail ' + (i + 1)">
+        <!-- Gallery -->
+        <div class="gallery">
+            <div class="main-image">
+                <img [src]="backendURL + '/static/product-images/' + product.images_urls[currentImageIndex]"
+                    [alt]="product.name_uz">
             </div>
-          }
-        </div>
-      </div>
-
-      <!-- Product Info -->
-      <div class="product-info">
-        <!-- Price Section -->
-        <div class="price-section">
-          @if (product.discount_price) {
-            <div class="discount-badge">-{{ discountPercent }}%</div>
-            <div class="current-price">{{ formatPrice(product.discount_price) }}</div>
-            <div class="old-price">{{ formatPrice(product.price_uzs) }}</div>
-          } @else {
-            <div class="current-price">{{ formatPrice(product.price_uzs) }}</div>
-          }
+            <div class="thumbnails">
+                @for (image of product.images_urls; track image; let i = $index) {
+                <div class="thumbnail" [class.active]="i === currentImageIndex" (click)="changeImage(i)">
+                    <img [src]="backendURL + '/static/product-images/' + image"
+                        [alt]="product.name_uz + ' thumbnail ' + (i + 1)">
+                </div>
+                }
+            </div>
         </div>
 
-        <!-- Delivery Info -->
-        <div class="delivery-info">
-          <div class="delivery-item">
-            <span class="icon">🚚</span>
-            <span>Yetkazib berish: <strong>1 331 so'm</strong> (1 kun)</span>
-          </div>
-          <div class="delivery-item">
-            <span class="icon">⚡</span>
-            <span>1 ta klikda harid qilish mumkin</span>
-          </div>
-        </div>
+        <!-- Product Info -->
+        <div class="product-info">
+            <!-- Price Section -->
+            <div class="price-section">
+                @if (product.discount_price) {
+                <div class="discount-badge">-{{ discountPercent }}%</div>
+                <div class="current-price">{{ formatPrice(product.discount_price) }}</div>
+                <div class="old-price">{{ formatPrice(product.price_uzs) }}</div>
+                } @else {
+                <div class="current-price">{{ formatPrice(product.price_uzs) }}</div>
+                }
+            </div>
 
-        <!-- Actions -->
-        <div class="actions">
-          <button class="buy-button">Savatga qo'shish</button>
-          <button class="one-click-button">1-click buyurtma</button>
-        </div>
+            <!-- Delivery Info -->
+            <div class="delivery-info">
+                <div class="delivery-item">
+                    <span class="icon">🚚</span>
+                    <span>Yetkazib berish: <strong> 30 000 so'm</strong> (1 kun)</span>
+                </div>
+                <div class="delivery-item">
+                    <span class="icon">⚡</span>
+                    <span>1 ta klikda savatga qo'shish mumkin</span>
+                </div>
+            </div>
 
-        <!-- Availability -->
-        <div class="availability">
-          <div class="availability-item">
-            <span class="icon">✓</span>
-            <span>{{ maxPurchase }} dona xarid qilish mumkin</span>
-          </div>
-          <div class="availability-item">
-            <span class="icon">⏳</span>
-            <span>Bu hafta {{ weeklyOrders }} kishi sotib oldi</span>
-          </div>
-        </div>
+            <!-- Actions -->
+            <!-- <div class="actions">
+                <button class="buy-button">Savatga qo'shish</button>
+                <button class="one-click-button">1-click buyurtma</button>
+            </div> -->
 
-        <!-- Seller Info -->
-        <div class="seller-info">
-          <h3>Sotuvchi</h3>
-          <p>Konstovar Market</p>
-          <div class="seller-rating">
-            <span>★ 4.9</span>
-            <span>(1245 sharh)</span>
-          </div>
+            <!-- Availability -->
+            <div class="availability">
+                <div class="availability-item">
+                    <span class="icon">✓</span>
+                    <span>{{ maxPurchase }} dona xarid qilish mumkin</span>
+                </div>
+                <div class="availability-item">
+                    <span class="icon">⏳</span>
+                    <span>Bu hafta {{ weeklyOrders }} kishi sotib oldi</span>
+                </div>
+            </div>
+
+            <!-- Seller Info -->
+            <div class="seller-info">
+                <h3>Sotuvchi</h3>
+                <p>Konstovar Market</p>
+                <div class="seller-rating">
+                    <span>★ 5.0</span>
+                    <span>(1245 sharh)</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- Product Details -->
     <div class="product-details">
-      <h2>Tavsif</h2>
-      <div class="description" [innerHTML]="safeDescription"></div>
+        <h2>Tavsif</h2>
+        <div class="description" [innerHTML]="safeDescription"></div>
     </div>
 
     <!-- Reviews Section -->
-    <div class="reviews-section">
-      <h2>Sharhlar ({{ product.reviews_count }})</h2>
-      <div class="review-summary">
-        <div class="overall-rating">
-          <span class="rating">{{ product.rating }}</span>
-          <span class="stars">★★★★★</span>
-          <span class="count">{{ product.reviews_count }} sharh</span>
+    <!-- <div class="reviews-section">
+        <h2>Sharhlar ({{ product.reviews_count }})</h2>
+        <div class="review-summary">
+            <div class="overall-rating">
+                <span class="rating">{{ product.rating }}</span>
+                <span class="stars">★★★★★</span>
+                <span class="count">{{ product.reviews_count }} sharh</span>
+            </div>
         </div>
-      </div>
 
-      <!-- Sample Review (you can make this dynamic later) -->
-      <div class="review">
-        <div class="review-header">
-          <span class="user">Foydalanuvchi</span>
-          <span class="date">31 Dekabr 2023</span>
-          <span class="rating">★★★★★</span>
+        <div class="review">
+            <div class="review-header">
+                <span class="user">Foydalanuvchi</span>
+                <span class="date">31 Dekabr 2023</span>
+                <span class="rating">★★★★★</span>
+            </div>
+            <div class="review-content">
+                Bu kormdan avval ham olingan, un ishoni bilan zakaz qilganman. Ichi shunada avlod ekan, qop qora
+                nimilardir bor. 2-sini ochib ko'rmadim, konserva bishmi mashallat...
+            </div>
         </div>
-        <div class="review-content">
-          Bu kormdan avval ham olingan, un ishoni bilan zakaz qilganman. Ichi shunada avlod ekan, qop qora nimilardir bor. 2-sini ochib ko'rmadim, konserva bishmi mashallat...
-        </div>
-      </div>
 
-      <button class="all-reviews-button">Barcha sharhlarni ko'rish</button>
-    </div>
-  </div>
+        <button class="all-reviews-button">Barcha sharhlarni ko'rish</button>
+    </div> -->
+</div>
 }

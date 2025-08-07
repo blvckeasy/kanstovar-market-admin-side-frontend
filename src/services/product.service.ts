@@ -20,4 +20,8 @@ export class ProductService {
   getProductById(id: string): Observable<any> {
     return this.httpClient.get(`${this.apiURL}/product/${id}`);
   }
+
+  updateProduct(id: string, formData: FormData): Observable<any> {
+    return this.httpClient.patch(`${this.apiURL}/product/${id}`, formData);
+  }
 }

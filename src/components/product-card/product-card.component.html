@@ -30,7 +30,7 @@
     </ng-template>
 
     <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; margin-top: 20px;">
-        <button nz-button nzType="primary">Tahrirlash</button>
+        <button nz-button nzType="primary" [routerLink]="`/edit-product/${product._id}`">Tahrirlash</button>
         <button nz-button nzType="primary" nzDanger>O'chirish</button>
     </div>
 
