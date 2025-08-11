@@ -17,6 +17,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { NzMessageService, NzMessageModule } from 'ng-zorro-antd/message';
 import { ProductCategoryService } from '../../services/product-category.service';
+import { environment } from '../../environments/environment';
 
 export interface IProductCategory {
   _id: string;
@@ -44,6 +45,8 @@ export interface IProductCategory {
   providers: [ProductCategoryService],
 })
 export class CreateProductPageComponent implements OnInit {
+  apiUrl: string = environment.apiUrl;
+
   productForm!: FormGroup;
   fileList: NzUploadFile[] = [];
   productCategories: IProductCategory[] = [];
@@ -133,7 +136,7 @@ export class CreateProductPageComponent implements OnInit {
       formData.append('isAvailable', value.isAvailable.toString());
 
       // Backend'ga yuborish
-      this.http.post('http://localhost:5000/product', formData).subscribe(
+      this.http.post(this.apiUrl + '/product', formData).subscribe(
         (response) => {
           this.messageService.success('Mahsulot muvaffaqiyatli yaratildi!', {
             nzDuration: 5000,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 interface GetProductCategoriesFilter {
   search?: string;
@@ -11,7 +12,7 @@ interface GetProductCategoriesFilter {
 })
 export class ProductCategoryService {
 
-  private apiURL = 'http://localhost:5000';
+  private apiURL = environment.apiUrl;
 
   constructor(
     private httpClient: HttpClient

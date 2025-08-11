@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 
 export interface IProduct {
@@ -44,7 +45,7 @@ export class ProductPageComponent implements OnInit {
   weeklyOrders = 87;
   maxPurchase = 5;
   
-  backendURL = 'http://localhost:5000';
+  backendURL = environment.apiUrl;
 
   constructor(
     private productService: ProductService,

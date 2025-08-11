@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzButtonModule, NzButtonSize } from 'ng-zorro-antd/button';
 import { RouterLink } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-product-card',
@@ -10,7 +11,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
-  backendURL = 'http://localhost:5000';
+  backendURL = environment.apiUrl;
 
   @Input() product: any;
   size: NzButtonSize = 'large';

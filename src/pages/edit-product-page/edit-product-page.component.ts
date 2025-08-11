@@ -14,6 +14,7 @@ import { MenuComponent } from '../../components/menu/menu.component';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { ProductService } from '../../services/product.service';
+import { environment } from '../../environments/environment';
 
 
 export interface IProductCategory {
@@ -59,7 +60,7 @@ export class EditProductPageComponent implements OnInit {
   fileList: NzUploadFile[] = [];
   productCategories: IProductCategory[] = [];
   product: Product | null = null;
-  localhostURL = 'http://localhost:5000';
+  localhostURL = environment.apiUrl;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
