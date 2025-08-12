@@ -51,6 +51,8 @@ export class CreateProductPageComponent implements OnInit {
   fileList: NzUploadFile[] = [];
   productCategories: IProductCategory[] = [];
 
+  isButtonLoading: boolean = false;
+
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -119,6 +121,8 @@ export class CreateProductPageComponent implements OnInit {
 
   onSubmit() {
     if (this.productForm.valid) {
+      this.isButtonLoading = true;
+
       const formData = new FormData();
       const value = this.productForm.value;
 
@@ -147,7 +151,10 @@ export class CreateProductPageComponent implements OnInit {
           this.productForm.reset();
           this.fileList = [];
           this.productForm.patchValue({ images: [] });
-          this.productForm.get('isAvailable')?.setValue(false);        },
+          this.productForm.get('isAvailable')?.setValue(false);
+          
+          this.isButtonLoading = false;
+        },
         (error) => {
           console.error('Error:', error);
           this.messageService.error(`Xatolik yuz berdi: ${error.message || 'Noma\'lum xato'}`, {
