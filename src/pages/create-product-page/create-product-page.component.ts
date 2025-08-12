@@ -82,7 +82,7 @@ export class CreateProductPageComponent implements OnInit {
       price_uzs: [null, Validators.required],
       category: ['', Validators.required],
       brand: ['', Validators.required],
-      isAvailable: [false],
+      isAvailable: [true],
     });
 
     this.productCategoryService.getProductCategories().subscribe(({ data, error }) => {
