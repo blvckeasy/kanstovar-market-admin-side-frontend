@@ -23,8 +23,9 @@ export class ProductCategoryService {
     
     if (filter?.search) {
       params.append('search', filter.search);
-      params.append('limit', '9999999');
     }
+
+    params.append('limit', '9999999');
 
     // Make HTTP GET request with optional filter parameters
     return this.httpClient.get(`${this.apiURL}/product-category?${params.toString()}`);
