@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule, NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { MenuComponent } from "../../components/menu/menu.component";
-
-import { FormsModule } from '@angular/forms';
-
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { ProductCategoryService } from '../../services/product-category.service';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
-interface ItemData {
+import { ProductCategoryService } from '../../services/product-category.service';
+import { MenuComponent } from "../../components/menu/menu.component";
+import { NzMessageService } from 'ng-zorro-antd/message';
+
+export interface ItemData {
   id: string;
   name: string;
   age: number;
   address: string;
 }
 
-interface IProductCategory {
+export interface IProductCategory {
   _id: string;
   name_uz: string;
   name_ru: string;
@@ -23,21 +26,37 @@ interface IProductCategory {
   updatedAt: string;
 }
 
+export interface ICreateProductCategory {
+  name_uz: string;
+  name_ru: string;
+}
+
 @Component({
   selector: 'app-product-categories',
-  imports: [NzTableModule, MenuComponent, FormsModule, NzInputModule, NzPopconfirmModule],
+  imports: [NzTableModule, MenuComponent, FormsModule, NzInputModule, NzPopconfirmModule, ReactiveFormsModule, NzButtonModule, NzFormModule, NzInputModule, NzModalModule],
   templateUrl: './product-categories.component.html',
   styleUrl: './product-categories.component.css',
   providers: [ProductCategoryService]
 })
 export class ProductCategoriesComponent implements OnInit {
+  private fb = inject(NonNullableFormBuilder);
+
   editCache: { [key: string]: { edit: boolean; data: IProductCategory } } = {};
   listOfData: ItemData[] = [];
 
   productCategories: IProductCategory[] = [];
 
+  isCreateCategoryModalVisibleMiddle: boolean = false;
+  
+  createProductCategoryForm = this.fb.group({
+    name_uz: ['', Validators.required],
+    name_ru: ['', Validators.required],
+  });
+
+  
   constructor (
     private productCategoryService: ProductCategoryService,
+    private messageService: NzMessageService,
   ) {}
 
   startEdit(id: string): void {
@@ -68,14 +87,39 @@ export class ProductCategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.productCategoryService.getProductCategories().subscribe(({ error, data }) => {
       if (error) {
         return alert(error.message);
       }
 
       this.productCategories = data;
+
       this.updateEditCache();
     })
+  }
+
+  async openCreateProductCategoryModal () {
+    this.isCreateCategoryModalVisibleMiddle = true;
+  }
+
+  async handleCreateCategoryModealCancelMiddle () {
+    this.isCreateCategoryModalVisibleMiddle = false;
+  }
+
+  async handlehandleCreateCategoryModealOkMiddle () {
+
+    const body = this.createProductCategoryForm.value;
+
+    this.productCategoryService.createProductCategory(body).subscribe(({ message, data, error }) => {
+      if (error) {
+        this.messageService.error(error.message);
+        return;
+      }
+
+      this.messageService.success(message);
+      this.createProductCategoryForm.reset();
+    })
+
+    this.isCreateCategoryModalVisibleMiddle = false;
   }
 }

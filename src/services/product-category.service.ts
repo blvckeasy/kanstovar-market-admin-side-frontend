@@ -31,4 +31,12 @@ export class ProductCategoryService {
     return this.httpClient.get(`${this.apiURL}/product-category?${params.toString()}`);
   }
 
+  createProductCategory(body: any): Observable<any> {
+    return this.httpClient.post(`${this.apiURL}/product-category`, body, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+  }
+
 }

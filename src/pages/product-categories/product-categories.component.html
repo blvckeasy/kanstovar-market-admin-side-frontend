@@ -36,13 +36,32 @@
   </div>
 </div> -->
 
-
 <div style="display: flex; flex-direction: row">
   <app-menu></app-menu>
   <div style="margin-top: 40px">
-    <h1 style="align-self: flex-start; margin-left: 50px; font-weight: bold; margin: 20px;">Mahsulot Kategoriyalari:</h1>
+    <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+      <h1
+        style="
+          align-self: flex-start;
+          margin-left: 50px;
+          font-weight: bold;
+          margin: 20px;
+        "
+      >
+        Mahsulot Kategoriyalari:
+      </h1>
+      <button nz-button nzType="primary" style="height: 40px" (click)="openCreateProductCategoryModal()">
+        Yangi Kategoriya
+      </button>
+    </div>
 
-    <nz-table #editRowTable nzBordered [nzData]="productCategories" nzTableLayout="fixed" style="width: 80%; margin: 0 auto; ">
+    <nz-table
+      #editRowTable
+      nzBordered
+      [nzData]="productCategories"
+      nzTableLayout="fixed"
+      style="width: 80%; margin: 0 auto"
+    >
       <thead>
         <tr>
           <th nzWidth="15%">Name_uz</th>
@@ -62,13 +81,30 @@
               <td>{{ data.updatedAt }}</td>
               <td><a (click)="startEdit(data._id)">Edit</a></td>
             } @else {
-              <td><input type="text" nz-input [(ngModel)]="editCache[data._id].data.name_uz" /></td>
-              <td><input type="text" nz-input [(ngModel)]="editCache[data._id].data.name_ru" /></td>
+              <td>
+                <input
+                  type="text"
+                  nz-input
+                  [(ngModel)]="editCache[data._id].data.name_uz"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  nz-input
+                  [(ngModel)]="editCache[data._id].data.name_ru"
+                />
+              </td>
               <td>{{ editCache[data._id].data.createdAt }}</td>
               <td>{{ editCache[data._id].data.updatedAt }}</td>
               <td>
                 <a (click)="saveEdit(data._id)" class="save">Save</a>
-                <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?" (nzOnConfirm)="cancelEdit(data._id)">Cancel</a>
+                <a
+                  nz-popconfirm
+                  nzPopconfirmTitle="Sure to cancel?"
+                  (nzOnConfirm)="cancelEdit(data._id)"
+                  >Cancel</a
+                >
               </td>
             }
           </tr>
@@ -77,3 +113,29 @@
     </nz-table>
   </div>
 </div>
+
+<nz-modal
+  [(nzVisible)]="isCreateCategoryModalVisibleMiddle"
+  nzTitle="Vertically centered modal dialog"
+  nzCentered
+  (nzOnCancel)="handleCreateCategoryModealCancelMiddle()"
+  (nzOnOk)="handlehandleCreateCategoryModealOkMiddle()"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="createProductCategoryForm">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>O'zbekcha nomi:</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input nz-input formControlName="name_uz" placeholder="Qalam" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Ruscha nomi:</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+          <input nz-input formControlName="name_ru" placeholder="Карандаш" />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
